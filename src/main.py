@@ -24,9 +24,36 @@ x = nodes_coordinates(N, EToV, VX)
 #INITIAL CONDITIONS.
 u = np.sin(x)
 #SOLVE PROBLEM.
-for finaltime in range(5):
-  [sol] = advec(u, finaltime)
-  
+#Advec1D section.
+finaltime = 10
+# DONE = "[sol] = advec(u, finaltime)"
+t = 0
+#Runge-Kutta residual storage.
+resu =  np.zeros(N+1, K)
+#Compute time steps.
+xmin = min(abs(x(1, :) - x(2, :)))
+CFL = 0.75
+dt = CFL/2*np.pi*xmin
+dt = .5*dt
+Nsteps = np.ceil(finaltime/dt)
+dt = finaltime/Nsteps
+#Adcetion speed
+a = 2*np.pi
+#Outer time step loop
+
+for tstep in range(Nsteps):
+  for intrk in range(5):
+    timelocal = t + rk4("c", intrk)*dt
+    [rhsu] = ADVECRHS1D(u, timelocal, a) # NOT DONE...
+    resu = rk4("a", intrk)*resu + dt*rhsu
+    u = u + rk4("b", intrk)*resu
+  if t == 0 or t == 2.5 or t == 5.0 or t == 7.5 or t == 10:
+    plot(x, u) #NOT DONE...
+  t = t+dt
+
+
+
+
   #EXPORT DATA.
 
 #PLOT SOLUTION.
