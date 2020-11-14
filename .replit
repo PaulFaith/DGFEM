@@ -1,2 +1,2 @@
 language = "bash"
-run = "python src/DGFEM/test.py"
+run = "python src/main.py"
