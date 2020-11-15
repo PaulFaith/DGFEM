@@ -485,3 +485,6 @@ def rk4(l, intrk):
     if l == "a" return (a(intrk))
     if l == "b" return (b(intrk))
     return (c(intrk))
+
+def advecrhs1d(u, timelocal, a):
+  return
