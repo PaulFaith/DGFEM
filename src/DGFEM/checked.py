@@ -4,6 +4,7 @@ import math
 
 def jacobi_gauss_lobatto(alpha, beta, n_order):
     """
+    OCTAVE CHECKED jacobiGL
     Compute the order n_order Gauss Lobatto quadrature points, x, associated
     with the Jacobi polynomial.
     
@@ -46,6 +47,7 @@ def jacobi_gauss(alpha, beta, n_order):
 
 def mesh_generator(xmin,xmax,k_elem):
     """
+    OCVATE CHECKED
     Generate simple equidistant grid with K elements
     >>> [Nv, vx, K, etov] = mesh_generator(0,10,4)
     >>> Nv
@@ -74,6 +76,7 @@ def mesh_generator(xmin,xmax,k_elem):
 
 def vandermonde(n_order, r):
     """
+    OCTAVE CHECKED Vandermonde1D
     Initialize Vandermonde matrix
     >>> r = jacobi_gauss_lobatto(0,0,2)
     >>> vandermonde(2,r)
@@ -90,6 +93,7 @@ def vandermonde(n_order, r):
 
 def differentiation_matrix(n_order,r,vander):
     """
+    OCTAVE CHECKED Dmatrix1D
     Initialize the (r) differentiation matrices
     of the interval evaluated at (r) at order n_order
     V is the 1d Vandermonde matrix
@@ -116,6 +120,7 @@ def differentiation_matrix(n_order,r,vander):
 
 def vandermonde_grad(n_order,r):
     """
+    OCTAVE CHECKED 
     Initialize the gradient of the modal basis (i) at (r)
     at order (n_order)
     >>> r = jacobi_gauss_lobatto(0,0,2)
@@ -132,6 +137,7 @@ def vandermonde_grad(n_order,r):
 
 def jacobi_polynomial_grad(r, alpha, beta, n_order):
     """
+
     Evaluate the derivative of the Jacobi pol. of type (alpha,beta) > -1
     at points r for order n_order
     >>> r = jacobi_gauss_lobatto(0,0,1)
@@ -156,6 +162,7 @@ def jacobi_polynomial_grad(r, alpha, beta, n_order):
 
 def jacobi_polynomial(r, alpha, beta, n_order):
     """
+    OCTAVE CHECKED JacobiP
     Evaluate Jacobi Polynomial
     >>> r = jacobi_gauss_lobatto(0,0,1)
     >>> jacobi_polynomial(r, 0, 0, 1)
@@ -210,6 +217,7 @@ def jacobi_polynomial(r, alpha, beta, n_order):
 
 def surface_integral_dg(n_order,vander):
     """
+    OCTAVE CHECKED Lift1D
     Compute surface integral term in DG formulation
     >>> r = jacobi_gauss_lobatto(0,0,2)
     >>> v = vandermonde(2,r)
@@ -486,5 +494,16 @@ def rk4(l, intrk):
     if l == "b" return (b(intrk))
     return (c(intrk))
 
-def advecrhs1d(u, timelocal, a):
-  return
+def advecrhs1d(u, timelocal, a, k_elem, V, N):
+    n_faces = 1
+    n_fp = 2
+    alpha = 1
+    du = np.zeros(n_faces*n_fp, k_elem)
+    du(:) = (u(vmap_m)-u(vmap_p))*(a*nx(:)-(1-alpha)*abs(a*nx(:)))/2 # pendiente de verificar
+    uin = -np.sin(a*timelocal)
+    du(map_i) = (u(vmap_i) - uin)*(a*nx(map_i)-(1-alpha)*abs(a*nx(map_i)))/2 # pendiente de verificar
+    du(map_o) = 0
+
+    rhsu = -a*rx*(Dr*u) + surface_integral_dg(V,N)*(Fscale*(du))
+
+    return rhsu

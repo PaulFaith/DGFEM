@@ -60,7 +60,7 @@ for tstep in range(Nsteps):
   ax.plot(x, u, t, label='parametric curve')  
   for intrk in range(5):
     timelocal = t + rk4("c", intrk)*dt
-    [rhsu] = advecrhs1d(u, timelocal, a) # NOT DONE...
+    rhsu = advecrhs1d(u, timelocal, a, K) # NOT DONE...
     resu = rk4("a", intrk)*resu + dt*rhsu
     u = u + rk4("b", intrk)*resu
   t = t+dt
