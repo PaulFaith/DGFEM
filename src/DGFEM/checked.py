@@ -137,7 +137,7 @@ def vandermonde_grad(n_order,r):
 
 def jacobi_polynomial_grad(r, alpha, beta, n_order):
     """
-
+    OCTAVE CHECKED, this function is used on vandermonde_grad.
     Evaluate the derivative of the Jacobi pol. of type (alpha,beta) > -1
     at points r for order n_order
     >>> r = jacobi_gauss_lobatto(0,0,1)
@@ -250,6 +250,7 @@ def surface_integral_dg(n_order,vander):
 
 def nodes_coordinates(n_order,etov,vx):
     """
+    OCTAVE CHECKED 2 menos
     Part of StartUp1D.m. Defined to be able to define
     methods depedent grid properties
     >>> [Nv,vx,K,etov] = mesh_generator(0,10,4)
@@ -278,6 +279,7 @@ def nodes_coordinates(n_order,etov,vx):
 
 def geometric_factors(nodes_coord,diff_matrix):
     """
+    OCTAVE CHECKED.
     Compute the metric elements for the local mappings of the 1D elements 
     >>> [Nv,vx,K,etov] = mesh_generator(0,10,4)
     >>> x = nodes_coordinates(2,etov,vx)
@@ -304,6 +306,7 @@ def geometric_factors(nodes_coord,diff_matrix):
 
 def connect(etov):
     """
+    OCTAVE CHECKED
     Build global connectivity arrays for 1D grid based on standard 
     etov input array from grid generator
     >>> [Nv,vx,K,etov] = mesh_generator(0,10,4)
@@ -386,6 +389,7 @@ def connect(etov):
 
 def normals(k_elem):
     """
+    OCTAVE CHECKED
     Compute outward pointing normals at element faces
     >>> normals(4)
     array([[-1., -1., -1., -1.],
@@ -402,6 +406,7 @@ def normals(k_elem):
 
 def build_maps(n_order,nodes_coord,etoe,etof):
     """
+    OCTAVE CHECKED
     Connectivity and boundary tables for nodes given in the K # of elements,
     each with n_order+1 degrees of freedom.
     >>> [Nv,vx,K,etov] = mesh_generator(0,10,4)
@@ -430,7 +435,6 @@ def build_maps(n_order,nodes_coord,etoe,etof):
     fmask_1 = np.where(np.abs(jgl+1)<1e-10)[0][0]
     fmask_2 = np.where(np.abs(jgl-1)<1e-10)[0][0]
     fmask = [fmask_1,fmask_2]
-
     node_ids = np.reshape(np.arange(k_elem*n_p),[n_p,k_elem],'F')
     vmap_m = np.full([k_elem,n_fp,n_faces],0)
     vmap_p = np.full([k_elem,n_fp,n_faces],0)
@@ -475,26 +479,28 @@ def build_maps(n_order,nodes_coord,etoe,etof):
     return [vmap_m,vmap_p,vmap_b,map_b]
 
 def rk4(l, intrk):
-    a = np.array([                             0.0, \
+  a = np.array([                             0.0, \
                    -567301805773.0/1357537059087.0, \
                   -2404267990393.0/2016746695238.0, \
                   -3550918686646.0/2091501179385.0, \
                    -1275806237668.0/842570457699.0])
-    b = np.array([ 1432997174477.0/9575080441755.0, \
+  b = np.array([ 1432997174477.0/9575080441755.0, \
                   5161836677717.0/13612068292357.0, \
                    1720146321549.0/2090206949498.0, \
                    3134564353537.0/4481467310338.0, \
                   2277821191437.0/14882151754819.0])
-    c = np.array([                             0.0, \
+  c = np.array([                             0.0, \
                    1432997174477.0/9575080441755.0, \
                    2526269341429.0/6820363962896.0, \
                    2006345519317.0/3224310063776.0, \
                    2802321613138.0/2924317926251.0])
-    if l == "a" return (a(intrk))
-    if l == "b" return (b(intrk))
-    return (c(intrk))
+  if l == "a":
+    return a[intrk]  
+  elif l == "b":
+    return b[intrk]
+  return c[intrk]
 
-def advecrhs1d(u, timelocal, a, k_elem, V, N):
+"""def advecrhs1d(u, timelocal, a, k_elem, V, N):
     n_faces = 1
     n_fp = 2
     alpha = 1
@@ -507,3 +513,4 @@ def advecrhs1d(u, timelocal, a, k_elem, V, N):
     rhsu = -a*rx*(Dr*u) + surface_integral_dg(V,N)*(Fscale*(du))
 
     return rhsu
+    """
