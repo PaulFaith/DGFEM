@@ -500,17 +500,25 @@ def rk4(l, intrk):
     return b[intrk]
   return c[intrk]
 
-"""def advecrhs1d(u, timelocal, a, k_elem, V, N):
+def advecrhs1d(u, timelocal, a, k_elem, V, N, rx, nx, vmap_p, vmap_m, vmap_i):
+    K=10
     n_faces = 1
+    map_O = K*n_faces
+    vmap_i = 1
     n_fp = 2
     alpha = 1
-    du = np.zeros(n_faces*n_fp, k_elem)
-    du(:) = (u(vmap_m)-u(vmap_p))*(a*nx(:)-(1-alpha)*abs(a*nx(:)))/2 # pendiente de verificar
+    du = np.zeros(n_faces*n_fp*k_elem)
+    #du reshape
+    nxr = np.reshape(nx, len(nx)*len(nx[0]), order='F')
+    #nx reshape
+    ur = (u[vmap_m]-u[vmap_p])*(a*nxr)/2
+    #u reshape
+    #du(:) = (u(vmap_m)-u(vmap_p))*(a*nx(:))/2 # pendiente de verificar
     uin = -np.sin(a*timelocal)
-    du(map_i) = (u(vmap_i) - uin)*(a*nx(map_i)-(1-alpha)*abs(a*nx(map_i)))/2 # pendiente de verificar
-    du(map_o) = 0
+    du[map_i] = (u[vmap_i] - uin)*(a*nx[map_i])/2 # pendiente de verificar
+    du[map_O] = 0
 
-    rhsu = -a*rx*(Dr*u) + surface_integral_dg(V,N)*(Fscale*(du))
+    rhsu = -a*rx*(np.matmul(Dr*u)) + surface_integral_dg(V,N)*(Fscale*du)
 
     return rhsu
-    """
+    
