@@ -18,14 +18,13 @@ txt = open("variables.txt", "w")
 #CONSTANTS AND VARIABLES ON THE EXAMPLE WAS GLOBALS1D.
 N = 8
 #GENERATE SIMPE MESH.
-[Nv, VX, K, EToV] = mesh_generator(0., 2., 10)
+[Nv, VX, K, EToV] = mesh_generator(0., 7., 10)
 #INITIALIZE SOLVER AND CONSTRUCT GRID AND METRIC.
-r = jacobi_gauss_lobatto(0, 0, N+2)
-V = vandermonde(N+2, r)
-Dr = differentiation_matrix(N+2, r, V)
-LIFT = surface_integral_dg(N+2, V)
-x = nodes_coordinates(N+2, EToV, VX)
-txt.write(f"\nx: {x}\n")
+r = jacobi_gauss_lobatto(0, 0, N)
+V = vandermonde(N, r)
+Dr = differentiation_matrix(N, r, V)
+LIFT = surface_integral_dg(N, V)
+x = nodes_coordinates(N, EToV, VX)
 [rx, J] = geometric_factors(x, Dr)
 nx = normals(K)
 [EToE, EToF] = connect(EToV)
