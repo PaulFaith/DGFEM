@@ -524,6 +524,5 @@ def advecrhs1d(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     dur = np.reshape(du, (2, int(len(du)/2)), order = 'F')
     Fdu = Fscale*dur
     rhsu = arx*Dru + np.matmul(si,Fdu)
-    print (rhsu)
     return rhsu
     
