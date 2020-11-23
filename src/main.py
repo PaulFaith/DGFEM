@@ -36,10 +36,8 @@ dt = CFL/(2*np.pi)*xmin
 dt = .5*dt
 Nsteps = np.ceil(finaltime/dt)
 dt = finaltime/Nsteps
-#Adcetion speed
-a = 2*np.pi
-#Outer time step loop Instantiated figure plot.
-fig = plt.figure()
+a = 2*np.pi #Advection speed
+fig = plt.figure() #Plot
 ax = plt.axes(projection = '3d')
 d3t = np.zeros((9,10))
 d3t = d3t + t
@@ -54,6 +52,10 @@ for tstep in range(int(Nsteps)):
     u = u + rk4("b", intrk)*resu      
   t = t+dt
   d3t = d3t + dt
+
+ax.set_xlabel('x')
+ax.set_ylabel('u(x,t)')
+ax.set_zlabel('Time')
 
 #PLOT SOLUTION.
 plt.show()
