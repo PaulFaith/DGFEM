@@ -54,11 +54,11 @@ for tstep in range(int(Nsteps)):
     u = u + rk4("b", intrk)*resu      
   t = t+dt
   d3t = d3t + dt
-  print (d3t)
 
+#PLOT SOLUTION.
 plt.show()
-#EXPORT DATA.
 
+#EXPORT DATA.
 txt = open("variables.txt", "w")
 txt.write(f"\nN: {N}\n")
 txt.write(f"\nNv: {Nv}\n")
@@ -86,6 +86,3 @@ txt.write(f"\ndt: {dt}\n")
 txt.write(f"\nNsteps: {Nsteps}\n")
 txt.write(f"\nxmin: {xmin}\n")
 txt.close()
-
-#PLOT SOLUTION.
-
