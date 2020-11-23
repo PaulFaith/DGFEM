@@ -39,19 +39,24 @@ dt = finaltime/Nsteps
 #Adcetion speed
 a = 2*np.pi
 #Outer time step loop Instantiated figure plot.
-#fig = plt.figure()
-#ax = fig.gca(projection='3d')
+fig = plt.figure()
+ax = plt.axes(projection = '3d')
+d3t = np.zeros((9,10))
+d3t = d3t + t
+my_cmap = plt.get_cmap('Greens')
+
 for tstep in range(int(Nsteps)):
-  #ax.plot(x, u, t, label='parametric curve')  
+  ax.scatter3D(x, u, d3t, alpha = 0.8, c = (x + u + d3t), cmap = my_cmap, marker ='^')  
   for intrk in range(5):
     timelocal = t + rk4("c", intrk)*dt
     rhsu = advecrhs1d(u, timelocal, a, K, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) # NOT DONE...
     resu = rk4("a", intrk)*resu + dt*rhsu
     u = u + rk4("b", intrk)*resu      
   t = t+dt
-print (u)
-#ax.legend()
-#plt.show()
+  d3t = d3t + dt
+  print (d3t)
+
+plt.show()
 #EXPORT DATA.
 
 txt = open("variables.txt", "w")
