@@ -4,9 +4,9 @@ import matplotlib as mpl
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 #CONSTANTS AND VARIABLES ON THE EXAMPLE WAS GLOBALS1D.
-N = 8
+N = 6
 #GENERATE SIMPE MESH.
-[Nv, VX, K, EToV] = mesh_generator(0., 7., 10)
+[Nv, VX, K, EToV] = mesh_generator(-2., 2., 80)
 #INITIALIZE SOLVER AND CONSTRUCT GRID AND METRIC.
 r = jacobi_gauss_lobatto(0, 0, N)
 V = vandermonde(N, r)
@@ -18,6 +18,18 @@ nx = normals(K)
 [EToE, EToF] = connect(EToV)
 [vmapM, vmapP, vmapB, mapB,fmask] = build_maps(N, x, EToE, EToF)
 Fscale = 1/J[fmask,:]
+
+eps1 = np.concatenate((np.ones(int(K/2)), 2*np.ones(int(K/2))),axis = 0)
+mu1 = np.ones(K)
+n_p = N+1
+
+epsilon = np.full((n_p, K), eps1)
+
+print(len(epsilon), len(epsilon[0]))
+print (epsilon)
+print (eps1)
+print (len(eps1))
+print (K)
 u = np.sin(x)
 #SOLVE PROBLEM.
 #Advec1D section.
@@ -38,7 +50,6 @@ ax = plt.axes(projection = '3d')
 d3t = np.zeros((9,10))
 d3t = d3t + t
 my_cmap = plt.get_cmap('autumn')
-ax.scatter3D(x, u, d3t, alpha = 0.8, c = (x + u + d3t), cmap = my_cmap, marker ='^')
 
 for tstep in range(int(Nsteps)):
   if (tstep % 15 == 0):
