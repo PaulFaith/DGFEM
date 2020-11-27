@@ -24,27 +24,24 @@ mu1 = np.ones(K)
 n_p = N+1
 
 epsilon = np.full((n_p, K), eps1)
-
-print(len(epsilon), len(epsilon[0]))
-print (epsilon)
-print (eps1)
-print (len(eps1))
-print (K)
-u = np.sin(x)
+mu = np.ones((n_p, K))
+print(len(mu))
+E = np.sin(np.pi*x)*(x<0)
+H = np.zeros((n_p, K))
 #SOLVE PROBLEM.
 #Advec1D section.
-finaltime = 1
+finaltime = 10
 t = 0
 #Runge-Kutta residual storage.
-resu = np.zeros((N+1, K))
+resE = np.zeros((N+1, K))
+resH = np.zeros((N+1, K))
 #Compute time steps.
 xmin = np.amin(np.abs(x[0, :] - x[1, :]))
-CFL = 0.75
-dt = CFL/(2*np.pi)*xmin
-dt = .5*dt
+CFL = 1.0
+dt = CFL*xmin
 Nsteps = np.ceil(finaltime/dt)
 dt = finaltime/Nsteps
-a = 2*np.pi #Advection speed
+
 fig = plt.figure() #Plot
 ax = plt.axes(projection = '3d')
 d3t = np.zeros((9,10))
@@ -55,10 +52,11 @@ for tstep in range(int(Nsteps)):
   if (tstep % 15 == 0):
     ax.scatter3D(x, u, d3t, alpha = 0.8, c = (x + u + d3t), cmap = my_cmap, marker ='^')
   for intrk in range(5):
-    timelocal = t + rk4("c", intrk)*dt
-    rhsu = advecrhs1d(u, timelocal, a, K, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) # NOT DONE...
-    resu = rk4("a", intrk)*resu + dt*rhsu
-    u = u + rk4("b", intrk)*resu
+    [rhsE, rhsH]  = advecrhs1d(u, timelocal, a, K, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) # NOT DONE...
+    resE = rk4("a", intrk)*resE + dt*rhsE
+    resH = rk4("a", intrk)*resH + dt*rhsH
+    E = E + rk4("b", intrk)*resE
+    H = H + rk4("b", intrk)*resH
   t = t+dt
   d3t = d3t + dt
 
