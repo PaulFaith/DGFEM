@@ -526,3 +526,48 @@ def advecrhs1d(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     rhsu = arx*Dru + np.matmul(si,Fdu)
     return rhsu
     
+def maxwell1d(E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, map_b, vmap_b, Fscale):
+  n_faces = 1
+  n_fp = 2
+
+  Zimp = np.sqrt(mu/epsilon)
+  Zimpr = np.reshape(Zimp, len(Zimp)*len(Zimp[0]), order='F')
+
+  dE = np.zeros((n_faces*n_fp*k_elem))
+  dH = np.zeros((n_faces*n_fp*k_elem))
+  #du reshape
+  nxr = np.reshape(nx, len(nx)*len(nx[0]), order='F')
+  #nx reshape
+  Er = np.reshape(E, len(E)*len(E[0]), order='F')
+  Hr = np.reshape(H, len(H)*len(H[0]), order='F')
+  dE = Er[vmap_m-1]-Er[vmap_p-1]
+  dH = Hr[vmap_m-1]-Hr[vmap_p-1]
+  Zimpr = np.reshape(Zimp, len(Zimp)*len(Zimp[0]), order='F')
+
+  Zimpm = np.zeros((n_faces*n_fp*k_elem))
+  Zimpm = Zimpr[vmap_m-1]
+  Zimpp = np.zeros((n_faces*n_fp*k_elem))
+  Zimpp = Zimpr[vmap_p-1]
+  Yimpm = np.zeros((n_faces*n_fp*k_elem))
+  Yimpm = 1/Zimpm
+  Yimpp = np.zeros((n_faces*n_fp*k_elem))
+  Yimpp = 1/Zimpp
+
+  Ebc = -Er[vmap_b-1]
+  dE[map_b-1] = Er[vmap_b-1] - Ebc
+  Hbc = Hr[vmap_b-1]
+  dH[map_b-1] = Hr[vmap_b-1] - Hbc
+
+  fluxE = 1/(Zimpm + Zimpp)*(nxr*Zimpp*dH - dE)
+  fluxH = 1/(Yimpm + Yimpp)*(nxr*Yimpp*dH - dE)
+
+  fluxEr = np.reshape(fluxE, (2, int(len(fluxE)/2)), order = 'F')
+  fluxHr = np.reshape(fluxH, (2, int(len(fluxE)/2)), order = 'F')
+
+  FfluxE = Fscale*fluxEr
+  FfluxH = Fscale*fluxHr
+
+  rhsE = (-rx*np.matmul(Dr,H) + np.matmul(LIFT,FfluxE))/epsilon
+  rhsH = (-rx*np.matmul(Dr,E) + np.matmul(LIFT,FfluxH))/mu
+
+  return rhsE, rhsH

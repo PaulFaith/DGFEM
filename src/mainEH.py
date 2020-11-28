@@ -44,15 +44,15 @@ dt = finaltime/Nsteps
 
 fig = plt.figure() #Plot
 ax = plt.axes(projection = '3d')
-d3t = np.zeros((9,10))
+d3t = np.zeros((7,80))
 d3t = d3t + t
 my_cmap = plt.get_cmap('autumn')
 
 for tstep in range(int(Nsteps)):
   if (tstep % 15 == 0):
-    ax.scatter3D(x, u, d3t, alpha = 0.8, c = (x + u + d3t), cmap = my_cmap, marker ='^')
+    ax.scatter3D(x, E, d3t, alpha = 0.8, cmap = my_cmap, marker ='^')
   for intrk in range(5):
-    [rhsE, rhsH]  = advecrhs1d(u, timelocal, a, K, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) # NOT DONE...
+    [rhsE, rhsH]  = maxwell1d(E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale) 
     resE = rk4("a", intrk)*resE + dt*rhsE
     resH = rk4("a", intrk)*resH + dt*rhsH
     E = E + rk4("b", intrk)*resE
