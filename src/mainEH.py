@@ -6,7 +6,7 @@ import numpy as np
 #CONSTANTS AND VARIABLES ON THE EXAMPLE WAS GLOBALS1D.
 N = 6
 #GENERATE SIMPE MESH.
-[Nv, VX, K, EToV] = mesh_generator(-2., 2., 80)
+[Nv, VX, K, EToV] = mesh_generator(-1., 1 ., 80)
 #INITIALIZE SOLVER AND CONSTRUCT GRID AND METRIC.
 r = jacobi_gauss_lobatto(0, 0, N)
 V = vandermonde(N, r)
@@ -18,18 +18,15 @@ nx = normals(K)
 [EToE, EToF] = connect(EToV)
 [vmapM, vmapP, vmapB, mapB,fmask] = build_maps(N, x, EToE, EToF)
 Fscale = 1/J[fmask,:]
-
 eps1 = np.concatenate((np.ones(int(K/2)), 2*np.ones(int(K/2))),axis = 0)
 mu1 = np.ones(K)
 n_p = N+1
-
 epsilon = np.full((n_p, K), eps1)
 mu = np.ones((n_p, K))
-print(len(mu))
 E = np.sin(np.pi*x)*(x<0)
 H = np.zeros((n_p, K))
 #SOLVE PROBLEM.
-#Advec1D section.
+#Maxwell section.
 finaltime = 10
 t = 0
 #Runge-Kutta residual storage.
@@ -41,6 +38,41 @@ CFL = 1.0
 dt = CFL*xmin
 Nsteps = np.ceil(finaltime/dt)
 dt = finaltime/Nsteps
+
+#EXPORT DATA.
+txt = open("variables.txt", "w")
+txt.write(f"\nN: {N}\n")
+txt.write(f"\nNv: {Nv}\n")
+txt.write(f"\nVX: {VX}\n")
+txt.write(f"\nK: {K}\n")
+txt.write(f"\nEToV: {EToV}\n")
+txt.write(f"\nr: {r}\n")
+txt.write(f"\nV: {V}\n")
+txt.write(f"\nDr: {Dr}\n")
+txt.write(f"\nLIFT: {LIFT}\n")
+txt.write(f"\nx: {x}\n")
+txt.write(f"\nrx: {rx}\n")
+txt.write(f"\nJ: {J}\n")
+txt.write(f"\nnx: {nx}\n")
+txt.write(f"\nEToE: {EToE}\n")
+txt.write(f"\nEToF: {EToF}\n")
+txt.write(f"\nvmapM: {vmapM}\n")
+txt.write(f"\nvmapP: {vmapP}\n")
+txt.write(f"\nvmapB: {vmapB}\n")
+txt.write(f"\nmapB: {mapB}\n")
+txt.write(f"\nfmask: {fmask}\n")
+txt.write(f"\nFscale: {Fscale}\n")
+txt.write(f"\nepsilon: {epsilon}\n")
+txt.write(f"\nmu: {mu}\n")
+txt.write(f"\nE: {E}\n")
+txt.write(f"\nH: {H}\n")
+txt.write(f"\nresE: {resE}\n")
+txt.write(f"\nresH: {resH}\n")
+txt.write(f"\ndt: {dt}\n")
+txt.write(f"\nNsteps: {Nsteps}\n")
+txt.write(f"\nxmin: {xmin}\n")
+txt.close()
+
 
 fig = plt.figure() #Plot
 ax = plt.axes(projection = '3d')
@@ -67,31 +99,4 @@ ax.set_zlabel('Time')
 #PLOT SOLUTION.
 plt.show()
 
-#EXPORT DATA.
-txt = open("variables.txt", "w")
-txt.write(f"\nN: {N}\n")
-txt.write(f"\nNv: {Nv}\n")
-txt.write(f"\nVX: {VX}\n")
-txt.write(f"\nK: {K}\n")
-txt.write(f"\nEToV: {EToV}\n")
-txt.write(f"\nr: {r}\n")
-txt.write(f"\nV: {V}\n")
-txt.write(f"\nDr: {Dr}\n")
-txt.write(f"\nLIFT: {LIFT}\n")
-txt.write(f"\nx: {x}\n")
-txt.write(f"\nrx: {rx}\n")
-txt.write(f"\nJ: {J}\n")
-txt.write(f"\nnx: {nx}\n")
-txt.write(f"\nEToE: {EToE}\n")
-txt.write(f"\nEToF: {EToF}\n")
-txt.write(f"\nvmapM: {vmapM}\n")
-txt.write(f"\nvmapP: {vmapP}\n")
-txt.write(f"\nvmapB: {vmapB}\n")
-txt.write(f"\nmapB: {mapB}\n")
-txt.write(f"\nfmask: {fmask}\n")
-txt.write(f"\nFscale: {Fscale}\n")
-txt.write(f"\nu: {u}\n")
-txt.write(f"\ndt: {dt}\n")
-txt.write(f"\nNsteps: {Nsteps}\n")
-txt.write(f"\nxmin: {xmin}\n")
-txt.close()
+
