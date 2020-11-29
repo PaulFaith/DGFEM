@@ -526,11 +526,12 @@ def advecrhs1d(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     rhsu = arx*Dru + np.matmul(si,Fdu)
     return rhsu
     
-def maxwell1d(E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, map_b, vmap_b, Fscale):
+def maxwell1d(tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, map_b, vmap_b, Fscale):
   n_faces = 1
   n_fp = 2
 
   Zimp = np.sqrt(mu/epsilon)
+  print (Zimp)
   Zimpr = np.reshape(Zimp, len(Zimp)*len(Zimp[0]), order='F')
 
   dE = np.zeros((n_faces*n_fp*k_elem))
@@ -569,5 +570,14 @@ def maxwell1d(E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, map_b
 
   rhsE = (-rx*np.matmul(Dr,H) + np.matmul(LIFT,FfluxE))/epsilon
   rhsH = (-rx*np.matmul(Dr,E) + np.matmul(LIFT,FfluxH))/mu
+  
+  if tsteps == 0 :
+    txt = open("variables1.txt", "w")
+    txt.write(f"\nN: {N}\n")
+    txt.close()
 
+  if tsteps == 5 :
+    txt = open("variables6.txt", "w")
+    txt.write(f"\nN: {N}\n")
+    txt.close()
   return rhsE, rhsH
