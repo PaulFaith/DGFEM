@@ -43,11 +43,13 @@ fig = plt.figure() #Plot
 ax = plt.axes(projection = '3d')
 d3t = np.zeros((7,80))
 d3t = d3t + t
-my_cmap = plt.get_cmap('autumn')
+my_cmap = plt.get_cmap('Reds')
+my_cmap1 = plt.get_cmap('Blues')
 
 for tstep in range(int(Nsteps)):
-  if (tstep % 15 == 0):
-    ax.scatter3D(x, E, d3t, alpha = 0.8, cmap = my_cmap, marker ='^')
+  if (tstep % 40 == 0):
+    ax.scatter3D(x, E, d3t, alpha = 0.8, c = (x + E + d3t), cmap = my_cmap, marker ='^')
+    ax.scatter3D(x, H, d3t, alpha = 0.8, c = (x + H + d3t), cmap = my_cmap1, marker ='^')
   for intrk in range(5):
     [rhsE, rhsH]  = maxwell1d(intrk, tstep, E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale) 
     resE = rk4("a", intrk)*resE + dt*rhsE
@@ -58,7 +60,7 @@ for tstep in range(int(Nsteps)):
   d3t = d3t + dt
 
 ax.set_xlabel('x')
-ax.set_ylabel('u(x,t)')
+ax.set_ylabel('E(x,t)')
 ax.set_zlabel('Time')
 
 #PLOT SOLUTION.
