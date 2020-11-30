@@ -49,7 +49,7 @@ for tstep in range(int(Nsteps)):
   if (tstep % 15 == 0):
     ax.scatter3D(x, E, d3t, alpha = 0.8, cmap = my_cmap, marker ='^')
   for intrk in range(5):
-    [rhsE, rhsH]  = maxwell1d(tsteps, E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale) 
+    [rhsE, rhsH]  = maxwell1d(intrk, tstep, E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale) 
     resE = rk4("a", intrk)*resE + dt*rhsE
     resH = rk4("a", intrk)*resH + dt*rhsH
     E = E + rk4("b", intrk)*resE

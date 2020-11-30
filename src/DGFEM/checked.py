@@ -526,12 +526,11 @@ def advecrhs1d(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     rhsu = arx*Dru + np.matmul(si,Fdu)
     return rhsu
     
-def maxwell1d(tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, map_b, vmap_b, Fscale):
+def maxwell1d(INTRK, tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, map_b, vmap_b, Fscale):
   n_faces = 1
   n_fp = 2
 
   Zimp = np.sqrt(mu/epsilon)
-  print (Zimp)
   Zimpr = np.reshape(Zimp, len(Zimp)*len(Zimp[0]), order='F')
 
   dE = np.zeros((n_faces*n_fp*k_elem))
@@ -560,7 +559,7 @@ def maxwell1d(tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_
   dH[map_b-1] = Hr[vmap_b-1] - Hbc
 
   fluxE = 1/(Zimpm + Zimpp)*(nxr*Zimpp*dH - dE)
-  fluxH = 1/(Yimpm + Yimpp)*(nxr*Yimpp*dH - dE)
+  fluxH = 1/(Yimpm + Yimpp)*(nxr*Yimpp*dE - dH)
 
   fluxEr = np.reshape(fluxE, (2, int(len(fluxE)/2)), order = 'F')
   fluxHr = np.reshape(fluxH, (2, int(len(fluxE)/2)), order = 'F')
@@ -572,12 +571,22 @@ def maxwell1d(tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_
   rhsH = (-rx*np.matmul(Dr,E) + np.matmul(LIFT,FfluxH))/mu
   
   if tsteps == 0 :
-    txt = open("variables1.txt", "w")
-    txt.write(f"\nN: {N}\n")
+    txt = open(f"variables1{INTRK}.txt", "w")
+    txt.write(f"\nZimpp: {Zimpp}\n")
+    txt.write(f"\nZimpm: {Zimpm}\n")
+    txt.write(f"\nYimpp: {Yimpp}\n")
+    txt.write(f"\nYimpm: {Yimpp}\n")
+    txt.write(f"\ndE: {dE}\n")
+    txt.write(f"\ndH: {dH}\n")
     txt.close()
 
   if tsteps == 5 :
     txt = open("variables6.txt", "w")
-    txt.write(f"\nN: {N}\n")
+    txt.write(f"\nZimpp: {Zimpp}\n")
+    txt.write(f"\nZimpm: {Zimpm}\n")
+    txt.write(f"\nYimpp: {Yimpp}\n")
+    txt.write(f"\nYimpm: {Yimpp}\n")
+    txt.write(f"\ndE: {dE}\n")
+    txt.write(f"\ndH: {dH}\n")
     txt.close()
   return rhsE, rhsH

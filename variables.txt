@@ -597,233 +597,149 @@ mu: [[1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
   1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
   1. 1. 1. 1. 1. 1. 1. 1.]]
 
-E: [[-1.22464680e-16 -7.84590957e-02 -1.56434465e-01 -2.33445364e-01
-  -3.09016994e-01 -3.82683432e-01 -4.53990500e-01 -5.22498565e-01
-  -5.87785252e-01 -6.49448048e-01 -7.07106781e-01 -7.60405966e-01
-  -8.09016994e-01 -8.52640164e-01 -8.91006524e-01 -9.23879533e-01
-  -9.51056516e-01 -9.72369920e-01 -9.87688341e-01 -9.96917334e-01
-  -1.00000000e+00 -9.96917334e-01 -9.87688341e-01 -9.72369920e-01
-  -9.51056516e-01 -9.23879533e-01 -8.91006524e-01 -8.52640164e-01
-  -8.09016994e-01 -7.60405966e-01 -7.07106781e-01 -6.49448048e-01
-  -5.87785252e-01 -5.22498565e-01 -4.53990500e-01 -3.82683432e-01
-  -3.09016994e-01 -2.33445364e-01 -1.56434465e-01 -7.84590957e-02
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [-6.66704261e-03 -8.51038423e-02 -1.63015949e-01 -2.39923007e-01
-  -3.15350861e-01 -3.88834471e-01 -4.59920788e-01 -5.28171541e-01
-  -5.93165940e-01 -6.54503273e-01 -7.11805377e-01 -7.64718963e-01
-  -8.12917803e-01 -8.56104735e-01 -8.94013496e-01 -9.26410366e-01
-  -9.53095609e-01 -9.73904700e-01 -9.88709344e-01 -9.97418267e-01
-  -9.99977775e-01 -9.96372087e-01 -9.86623434e-01 -9.70791919e-01
-  -9.48975150e-01 -9.21307633e-01 -8.87959948e-01 -8.49137694e-01
-  -8.05080225e-01 -7.56059168e-01 -7.02376755e-01 -6.44363955e-01
-  -5.82378438e-01 -5.16802364e-01 -4.48040031e-01 -3.76515383e-01
-  -3.02669392e-01 -2.26957344e-01 -1.49846028e-01 -7.18108616e-02
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [-2.08567467e-02 -9.92344812e-02 -1.77000402e-01 -2.53675057e-01
-  -3.28785720e-01 -4.01869310e-01 -4.72475243e-01 -5.40168208e-01
-  -6.04530856e-01 -6.65166371e-01 -7.21700914e-01 -7.73785931e-01
-  -8.21100301e-01 -8.63352313e-01 -9.00281472e-01 -9.31660096e-01
-  -9.57294726e-01 -9.77027316e-01 -9.90736207e-01 -9.98336880e-01
-  -9.99782474e-01 -9.95064077e-01 -9.84210779e-01 -9.67289494e-01
-  -9.44404548e-01 -9.15697034e-01 -8.81343943e-01 -8.41557073e-01
-  -7.96581724e-01 -7.46695184e-01 -6.92205020e-01 -6.33447182e-01
-  -5.70783931e-01 -5.04601608e-01 -4.35308248e-01 -3.63331068e-01
-  -2.89113830e-01 -2.13114110e-01 -1.35800471e-01 -5.76495766e-02
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [-3.92598158e-02 -1.17537397e-01 -1.95090322e-01 -2.71440450e-01
-  -3.46117057e-01 -4.18659738e-01 -4.88621241e-01 -5.55570233e-01
-  -6.19093949e-01 -6.78800746e-01 -7.34322509e-01 -7.85316931e-01
-  -8.31469612e-01 -8.72496007e-01 -9.08143174e-01 -9.38191336e-01
-  -9.62455236e-01 -9.80785280e-01 -9.93068457e-01 -9.99229036e-01
-  -9.99229036e-01 -9.93068457e-01 -9.80785280e-01 -9.62455236e-01
-  -9.38191336e-01 -9.08143174e-01 -8.72496007e-01 -8.31469612e-01
-  -7.85316931e-01 -7.34322509e-01 -6.78800746e-01 -6.19093949e-01
-  -5.55570233e-01 -4.88621241e-01 -4.18659738e-01 -3.46117057e-01
-  -2.71440450e-01 -1.95090322e-01 -1.17537397e-01 -3.92598158e-02
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [-5.76495766e-02 -1.35800471e-01 -2.13114110e-01 -2.89113830e-01
-  -3.63331068e-01 -4.35308248e-01 -5.04601608e-01 -5.70783931e-01
-  -6.33447182e-01 -6.92205020e-01 -7.46695184e-01 -7.96581724e-01
-  -8.41557073e-01 -8.81343943e-01 -9.15697034e-01 -9.44404548e-01
-  -9.67289494e-01 -9.84210779e-01 -9.95064077e-01 -9.99782474e-01
-  -9.98336880e-01 -9.90736207e-01 -9.77027316e-01 -9.57294726e-01
-  -9.31660096e-01 -9.00281472e-01 -8.63352313e-01 -8.21100301e-01
-  -7.73785931e-01 -7.21700914e-01 -6.65166371e-01 -6.04530856e-01
-  -5.40168208e-01 -4.72475243e-01 -4.01869310e-01 -3.28785720e-01
-  -2.53675057e-01 -1.77000402e-01 -9.92344812e-02 -2.08567467e-02
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [-7.18108616e-02 -1.49846028e-01 -2.26957344e-01 -3.02669392e-01
-  -3.76515383e-01 -4.48040031e-01 -5.16802364e-01 -5.82378438e-01
-  -6.44363955e-01 -7.02376755e-01 -7.56059168e-01 -8.05080225e-01
-  -8.49137694e-01 -8.87959948e-01 -9.21307633e-01 -9.48975150e-01
-  -9.70791919e-01 -9.86623434e-01 -9.96372087e-01 -9.99977775e-01
-  -9.97418267e-01 -9.88709344e-01 -9.73904700e-01 -9.53095609e-01
-  -9.26410366e-01 -8.94013496e-01 -8.56104735e-01 -8.12917803e-01
-  -7.64718963e-01 -7.11805377e-01 -6.54503273e-01 -5.93165940e-01
-  -5.28171541e-01 -4.59920788e-01 -3.88834471e-01 -3.15350861e-01
-  -2.39923007e-01 -1.63015949e-01 -8.51038423e-02 -6.66704261e-03
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [-7.84590957e-02 -1.56434465e-01 -2.33445364e-01 -3.09016994e-01
-  -3.82683432e-01 -4.53990500e-01 -5.22498565e-01 -5.87785252e-01
-  -6.49448048e-01 -7.07106781e-01 -7.60405966e-01 -8.09016994e-01
-  -8.52640164e-01 -8.91006524e-01 -9.23879533e-01 -9.51056516e-01
-  -9.72369920e-01 -9.87688341e-01 -9.96917334e-01 -1.00000000e+00
-  -9.96917334e-01 -9.87688341e-01 -9.72369920e-01 -9.51056516e-01
-  -9.23879533e-01 -8.91006524e-01 -8.52640164e-01 -8.09016994e-01
-  -7.60405966e-01 -7.07106781e-01 -6.49448048e-01 -5.87785252e-01
-  -5.22498565e-01 -4.53990500e-01 -3.82683432e-01 -3.09016994e-01
-  -2.33445364e-01 -1.56434465e-01 -7.84590957e-02  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
-   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]]
+E: [[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]]
 
-H: [[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]]
+H: [[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]]
 
-resE: [[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]]
+resE: [[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]]
 
-resH: [[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
-  0. 0. 0. 0. 0. 0. 0. 0.]]
+resH: [[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]
+ [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+  nan nan nan nan nan nan nan nan]]
 
 dt: 0.0021217907914279654
 
