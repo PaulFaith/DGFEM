@@ -7,14 +7,14 @@ def jacobi_gauss_lobatto(alpha, beta, n_order):
     OCTAVE CHECKED jacobiGL
     Compute the order n_order Gauss Lobatto quadrature points, x, associated
     with the Jacobi polynomial.
-    
+
     >>> jacobi_gauss_lobatto(0.0, 0.0, 1)
     array([-1.,  1.])
     >>> jacobi_gauss_lobatto(0,0,3)
     array([-1.       , -0.4472136,  0.4472136,  1.       ])
     >>> jacobi_gauss_lobatto(0,0,4)
     array([-1.        , -0.65465367,  0.        ,  0.65465367,  1.        ])
-    
+
     """
     if n_order==0:
         return np.array([0.0])
@@ -23,13 +23,13 @@ def jacobi_gauss_lobatto(alpha, beta, n_order):
     if n_order>1:
         x, w = scipy.special.roots_jacobi(n_order-1, alpha+1, beta+1)
         return np.concatenate(([-1.0], x, [1.0]))
-    
+
     raise ValueError('n_order must be positive.')
 
 def jacobi_gauss(alpha, beta, n_order):
     """
-    Compute the order n_order Gauss quadrature points, x, 
-    and weights, w, associated with the Jacobi 
+    Compute the order n_order Gauss quadrature points, x,
+    and weights, w, associated with the Jacobi
     polynomial, of type (alpha,beta) > -1 ( <> -0.5).
     >>> s1 = jacobi_gauss(2,1,0)
     >>> s2 = [-0.2,  2]
@@ -85,10 +85,10 @@ def vandermonde(n_order, r):
            [ 0.70710678,  1.22474487,  1.58113883]])
     """
     vander = np.zeros([len(r), n_order+1])
-    
+
     for j in range(n_order+1):
         vander[:,j] = jacobi_polynomial(r, 0, 0, j)
-        
+
     return vander
 
 def differentiation_matrix(n_order,r,vander):
@@ -120,7 +120,7 @@ def differentiation_matrix(n_order,r,vander):
 
 def vandermonde_grad(n_order,r):
     """
-    OCTAVE CHECKED 
+    OCTAVE CHECKED
     Initialize the gradient of the modal basis (i) at (r)
     at order (n_order)
     >>> r = jacobi_gauss_lobatto(0,0,2)
@@ -132,7 +132,7 @@ def vandermonde_grad(n_order,r):
     grad_vander =  np.zeros([len(r),n_order+1])
     for i in range(n_order+1):
         grad_vander[:,i] = jacobi_polynomial_grad(r,0,0,i)
-        
+
     return grad_vander
 
 def jacobi_polynomial_grad(r, alpha, beta, n_order):
@@ -147,12 +147,12 @@ def jacobi_polynomial_grad(r, alpha, beta, n_order):
     >>> jacobi_polynomial_grad(r,0,0,3)
     array([11.22497216,  0.        ,  0.        , 11.22497216])
     """
-    
+
     der_jacobi_pol = np.zeros([len(r)])
 
     if n_order == 0:
         return der_jacobi_pol
-       
+
     jacobi_pol = jacobi_polynomial(r,alpha+1,beta+1,n_order-1)
 
     for i in range(len(r)):
@@ -177,7 +177,7 @@ def jacobi_polynomial(r, alpha, beta, n_order):
     >>> jacobi_polynomial(r, 0, 0, 4)
     array([ 2.12132034, -0.90913729,  0.79549513, -0.90913729,  2.12132034])
     """
-    jacobi_pol = np.zeros([n_order+1,len(r)]) 
+    jacobi_pol = np.zeros([n_order+1,len(r)])
     # Initial values P_0(x) and P_1(x)
     gamma0 = 2**(alpha+beta+1) \
             / (alpha+beta+1) \
@@ -199,20 +199,20 @@ def jacobi_polynomial(r, alpha, beta, n_order):
     # Repeat value in recurrence.
     aold = 2. / (2.+alpha+beta) \
         * math.sqrt( (alpha+1.)*(beta+1.) / (alpha+beta+3.))
-    
+
     # Forward recurrence using the symmetry of the recurrence.
     for i in range(n_order-1):
         h1 = 2.*(i+1.) + alpha + beta
         anew = 2. / (h1+2.) \
             * math.sqrt((i+2.)*(i+2.+ alpha+beta)*(i+2.+alpha)*(i+2.+beta) \
                         / (h1+1.)/(h1+3.))
-    
+
         bnew = - (alpha**2 - beta**2) / h1 / (h1+2.)
-    
+
         jacobi_pol[i+2] = 1. / anew * (-aold * jacobi_pol[i] + (r-bnew) * jacobi_pol[i+1])
-    
+
         aold = anew
-    
+
     return jacobi_pol[n_order]
 
 def surface_integral_dg(n_order,vander):
@@ -265,7 +265,7 @@ def nodes_coordinates(n_order,etov,vx):
     """
 
     jgl = jacobi_gauss_lobatto(0,0,n_order)
-    
+
     va = etov[:,0]
     vb = etov[:,1]
     vx_va = np.zeros([1,len(va)])
@@ -280,7 +280,7 @@ def nodes_coordinates(n_order,etov,vx):
 def geometric_factors(nodes_coord,diff_matrix):
     """
     OCTAVE CHECKED.
-    Compute the metric elements for the local mappings of the 1D elements 
+    Compute the metric elements for the local mappings of the 1D elements
     >>> [Nv,vx,K,etov] = mesh_generator(0,10,4)
     >>> x = nodes_coordinates(2,etov,vx)
     >>> r = jacobi_gauss_lobatto(0,0,2)
@@ -307,7 +307,7 @@ def geometric_factors(nodes_coord,diff_matrix):
 def connect(etov):
     """
     OCTAVE CHECKED
-    Build global connectivity arrays for 1D grid based on standard 
+    Build global connectivity arrays for 1D grid based on standard
     etov input array from grid generator
     >>> [Nv,vx,K,etov] = mesh_generator(0,10,4)
     >>> [etoe, etof] = connect(etov)
@@ -345,7 +345,7 @@ def connect(etov):
     True
     """
     n_faces = 2
-    k_elem = np.shape(etov)[0] 
+    k_elem = np.shape(etov)[0]
     total_faces = n_faces*k_elem
     nv = k_elem+1
     vn = np.arange(0,2)
@@ -357,7 +357,7 @@ def connect(etov):
         for face in range(n_faces):
             sp_ftov[sk][etov[i][vn[face]]-1] = 1
             sk += 1
-    
+
     sp_ftof = np.matmul(sp_ftov,np.transpose(sp_ftov))-np.identity(total_faces)
     [faces_2,faces_1] = np.where(sp_ftof==1)
     #numpy floor returns floats
@@ -383,7 +383,7 @@ def connect(etov):
 
     for i in range(len(ind)):
         etoe.ravel()[ind[i]] = element_2[i]+1
-        etof.ravel()[ind[i]] = face_2[i]+1 
+        etof.ravel()[ind[i]] = face_2[i]+1
 
     return [etoe, etof]
 
@@ -402,7 +402,7 @@ def normals(k_elem):
     nx = np.zeros([n_fp*n_faces,k_elem])
     nx[0,:] = -1.0
     nx[1,:] = 1.0
-    return nx 
+    return nx
 
 def build_maps(n_order,nodes_coord,etoe,etof):
     """
@@ -455,7 +455,7 @@ def build_maps(n_order,nodes_coord,etoe,etof):
             x1 = nodes_coord.ravel('F')[vid_m]
             x2 = nodes_coord.ravel('F')[vid_p]
 
-            distance = (x2-x1)**2  
+            distance = (x2-x1)**2
             if (distance < 1e-10):
                 vmap_p[k1,:,f1] = vid_p
 
@@ -475,7 +475,7 @@ def build_maps(n_order,nodes_coord,etoe,etof):
     map_o = k_elem*n_faces
     vmap_i = 1
     vmap_0 = k_elem*n_p
-    
+
     return [vmap_m,vmap_p,vmap_b,map_b,fmask]
 
 def rk4(l, intrk):
@@ -495,7 +495,7 @@ def rk4(l, intrk):
                    2006345519317.0/3224310063776.0, \
                    2802321613138.0/2924317926251.0])
   if l == "a":
-    return a[intrk]  
+    return a[intrk]
   elif l == "b":
     return b[intrk]
   return c[intrk]
@@ -514,9 +514,9 @@ def advecrhs1d(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     #nx reshape
     ur = np.reshape(u, len(u)*len(u[0]), order='F')
     du = (ur[vmap_m-1]-ur[vmap_p-1])*(a*nxr)/2
-    
+
     uin = -np.sin(a*timelocal)
-    du[map_i-1] = (ur[vmap_i-1] - uin)*(a*nxr[map_i-1])/2 
+    du[map_i-1] = (ur[vmap_i-1] - uin)*(a*nxr[map_i-1])/2
     du[map_O-1] = 0
     arx = -a*rx
     Dru = np.matmul(Dr,u)
@@ -525,7 +525,7 @@ def advecrhs1d(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     Fdu = Fscale*dur
     rhsu = arx*Dru + np.matmul(si,Fdu)
     return rhsu
-    
+
 def maxwell1d(INTRK, tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, map_b, vmap_b, Fscale):
   n_faces = 1
   n_fp = 2
@@ -570,23 +570,4 @@ def maxwell1d(INTRK, tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p
   rhsE = (-rx*np.matmul(Dr,H) + np.matmul(LIFT,FfluxE))/epsilon
   rhsH = (-rx*np.matmul(Dr,E) + np.matmul(LIFT,FfluxH))/mu
   
-  if tsteps == 0 :
-    txt = open(f"variables1{INTRK}.txt", "w")
-    txt.write(f"\nZimpp: {Zimpp}\n")
-    txt.write(f"\nZimpm: {Zimpm}\n")
-    txt.write(f"\nYimpp: {Yimpp}\n")
-    txt.write(f"\nYimpm: {Yimpp}\n")
-    txt.write(f"\ndE: {dE}\n")
-    txt.write(f"\ndH: {dH}\n")
-    txt.close()
-
-  if tsteps == 5 :
-    txt = open("variables6.txt", "w")
-    txt.write(f"\nZimpp: {Zimpp}\n")
-    txt.write(f"\nZimpm: {Zimpm}\n")
-    txt.write(f"\nYimpp: {Yimpp}\n")
-    txt.write(f"\nYimpm: {Yimpp}\n")
-    txt.write(f"\ndE: {dE}\n")
-    txt.write(f"\ndH: {dH}\n")
-    txt.close()
   return rhsE, rhsH

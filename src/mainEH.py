@@ -47,11 +47,11 @@ my_cmap = plt.get_cmap('Reds')
 my_cmap1 = plt.get_cmap('Blues')
 
 for tstep in range(int(Nsteps)):
-  if (tstep % 40 == 0):
+  if (tstep % 10 == 0):
     ax.scatter3D(x, E, d3t, alpha = 0.8, c = (x + E + d3t), cmap = my_cmap, marker ='^')
     ax.scatter3D(x, H, d3t, alpha = 0.8, c = (x + H + d3t), cmap = my_cmap1, marker ='^')
   for intrk in range(5):
-    [rhsE, rhsH]  = maxwell1d(intrk, tstep, E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale) 
+    [rhsE, rhsH]  = maxwell1d(intrk, tstep, E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale)
     resE = rk4("a", intrk)*resE + dt*rhsE
     resH = rk4("a", intrk)*resH + dt*rhsH
     E = E + rk4("b", intrk)*resE
@@ -59,43 +59,12 @@ for tstep in range(int(Nsteps)):
   t = t + dt
   d3t = d3t + dt
 
-ax.set_xlabel('x')
-ax.set_ylabel('E(x,t)')
-ax.set_zlabel('Time')
+#ax.set_xlabel('x')
+#ax.set_ylabel('E(x,t) & H(x,t)')
+#ax.set_zlabel('Time')
+
+plt.axis('off')
+plt.grid(b=None)
 
 #PLOT SOLUTION.
 plt.show()
-
-#EXPORT DATA.
-txt = open("variables.txt", "w")
-txt.write(f"\nN: {N}\n")
-txt.write(f"\nNv: {Nv}\n")
-txt.write(f"\nVX: {VX}\n")
-txt.write(f"\nK: {K}\n")
-txt.write(f"\nEToV: {EToV}\n")
-txt.write(f"\nr: {r}\n")
-txt.write(f"\nV: {V}\n")
-txt.write(f"\nDr: {Dr}\n")
-txt.write(f"\nLIFT: {LIFT}\n")
-txt.write(f"\nx: {x}\n")
-txt.write(f"\nrx: {rx}\n")
-txt.write(f"\nJ: {J}\n")
-txt.write(f"\nnx: {nx}\n")
-txt.write(f"\nEToE: {EToE}\n")
-txt.write(f"\nEToF: {EToF}\n")
-txt.write(f"\nvmapM: {vmapM}\n")
-txt.write(f"\nvmapP: {vmapP}\n")
-txt.write(f"\nvmapB: {vmapB}\n")
-txt.write(f"\nmapB: {mapB}\n")
-txt.write(f"\nfmask: {fmask}\n")
-txt.write(f"\nFscale: {Fscale}\n")
-txt.write(f"\nepsilon: {epsilon}\n")
-txt.write(f"\nmu: {mu}\n")
-txt.write(f"\nE: {E}\n")
-txt.write(f"\nH: {H}\n")
-txt.write(f"\nresE: {resE}\n")
-txt.write(f"\nresH: {resH}\n")
-txt.write(f"\ndt: {dt}\n")
-txt.write(f"\nNsteps: {Nsteps}\n")
-txt.write(f"\nxmin: {xmin}\n")
-txt.close()
