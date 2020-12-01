@@ -59,12 +59,12 @@ for tstep in range(int(Nsteps)):
   t = t + dt
   d3t = d3t + dt
 
-#ax.set_xlabel('x')
-#ax.set_ylabel('E(x,t) & H(x,t)')
-#ax.set_zlabel('Time')
+ax.set_xlabel('x')
+ax.set_ylabel('E(x,t) & H(x,t)')
+ax.set_zlabel('Time')
 
-plt.axis('off')
-plt.grid(b=None)
+#plt.axis('off')
+#plt.grid(b=None)
 
 #PLOT SOLUTION.
 plt.show()
