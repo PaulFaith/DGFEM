@@ -26,12 +26,16 @@ mu = np.ones((n_p, K))
 c=.01
 A=1
 sig=.05
-E = A*np.exp(-((x+.7)/(sig*np.sqrt(2)))**2) 
+E = A*np.exp(-((x)/(sig*np.sqrt(2)))**2) 
 H = np.zeros((n_p, K))
+#E[0,0] = 0
+#E[6,79] = 0
+#H[0,0] = 0
+#H[6,79] = 0
 
 #SOLVE PROBLEM.
 #Maxwell section.
-finaltime = 10
+finaltime = 20
 t = 0
 #Runge-Kutta residual storage.
 resE = np.zeros((N+1, K))
@@ -44,21 +48,57 @@ Nsteps = np.ceil(finaltime/dt)
 dt = finaltime/Nsteps
 
 nplots = int(Nsteps/7)
-fig, axs = plt.subplots(8)
+fig, axs = plt.subplots(2)
+plt.figure(1)
+
+times = np.zeros(int(Nsteps))
+EField = np.zeros(int(Nsteps))
+EField1 = np.zeros(int(Nsteps))
+EField2 = np.zeros(int(Nsteps))
+HField1 = np.zeros(int(Nsteps))
+HField2 = np.zeros(int(Nsteps))
+EField5 = np.zeros(int(Nsteps))
+EField6 = np.zeros(int(Nsteps))
+EField7 = np.zeros(int(Nsteps))
 
 for tstep in range(int(Nsteps)):
+  times[tstep] = t
+  EField[tstep] = E[4, 1]
+  EField1[tstep] = E[0, 30]
+  EField2[tstep] = E[0, 50]
+  HField1[tstep] = H[0, 30]
+  HField2[tstep] = H[0, 40]
+  EField5[tstep] = E[4, 50]
+  EField6[tstep] = E[4, 60]
+  EField7[tstep] = E[4, 70]
+  
   if (tstep % nplots == 0):
-    axs[int(tstep/nplots)].plot(x, E, '.', ms = 6, color = 'red')
-    axs[int(tstep/nplots)].plot(x, H, '.', ms = 6, color = 'blue')  
+    pass
+    #axs[int(tstep/nplots)].plot(x, E, '.', ms = 6, color = 'red')
+    #axs[int(tstep/nplots)].plot(x, H, '.', ms = 6, color = 'blue')  
   for intrk in range(5):
     [rhsE, rhsH]  = maxwell1d(intrk, tstep, E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale) 
     resE = rk4("a", intrk)*resE + dt*rhsE
     resH = rk4("a", intrk)*resH + dt*rhsH
     E = E + rk4("b", intrk)*resE
+    E[0,0] = 0
+    E[6,79] = 0
+    H[0,0] = 0
+    H[6,79] = 0
     H = H + rk4("b", intrk)*resH
   t = t + dt
+
+print (times)
+print (len(E[0, :]))
+
+axs[0].plot(times, EField1, color = 'blue')
+axs[0].plot(times, EField2, color = 'green')
+axs[1].plot(times, HField1, color = 'blue')
+axs[1].plot(times, HField2, color = 'green')
+
+
 for ax in axs.flat:
-    ax.set(xlabel='x', ylabel='u(x,t)')
+    ax.set(xlabel='t', ylabel='u(x,t)')
 
 for ax in axs.flat:
     ax.label_outer()
