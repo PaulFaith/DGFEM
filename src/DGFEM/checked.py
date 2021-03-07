@@ -268,13 +268,13 @@ def nodes_coordinates(n_order,etov,vx):
 
     va = etov[:,0]
     vb = etov[:,1]
-    vx_va = np.zeros([1,len(va)])
-    vx_vb = np.zeros([1,len(va)])
+    vx_va = np.zeros([1,len(va)], dtype = 'g')
+    vx_vb = np.zeros([1,len(va)], dtype = 'g')
     for i in range(len(va)):
         vx_va[0,i] = vx[va[i]-1]
         vx_vb[0,i] = vx[vb[i]-1]
 
-    nodes_coord = np.matmul(np.ones([n_order+1,1]),vx_va)+0.5*np.matmul((jgl.reshape(n_order+1,1)+1),(vx_vb-vx_va))
+    nodes_coord = np.matmul(np.ones([n_order+1,1], dtype = 'g'),vx_va)+0.5*np.matmul((jgl.reshape(n_order+1,1)+1),(vx_vb-vx_va))
     return nodes_coord
 
 def geometric_factors(nodes_coord,diff_matrix):
@@ -571,3 +571,68 @@ def maxwell1d(INTRK, tsteps, E, H, epsilon, mu, k_elem, Dr, LIFT, rx, nx, vmap_p
   rhsH = (-rx*np.matmul(Dr,E) + np.matmul(LIFT,FfluxH))/mu
   
   return rhsE, rhsH
+
+def maxwellexE(n1, n2, t, x, w):
+  xr = np.reshape(x, len(x)*len(x[0]), order='F')
+  A = np.zeros(2)
+  B = np.zeros(2)
+  j = np.complex(0,1)
+  A[0] = (n2*np.cos(n2*w))/(n1*np.cos(n1*w))
+  A[1] = np.real(np.exp(w*(n1+n2)*j))
+  B[0] = np.real(np.exp(-2*n1*w*j))*A[0] 
+  B[1] = -np.real(np.exp(2*j*n2*w))*A[1]
+  Ex1 = np.zeros((len(x)*len(x[0])))
+  Ex2 = np.zeros((len(x)*len(x[0])))  
+  
+  Ex1 = (-A[0]*np.real(np.exp(w*j*n1*xr[:len(xr)//2]))+B[0]*np.real(np.exp(-w*j*n1*xr[:len(xr)//2])))*np.real(np.exp(j*w*t))
+  Ex2 = (-A[1]*np.real(np.exp(w*j*n2*xr[len(xr)//2:]))+B[1]*np.real(np.exp(-w*j*n2*xr[len(xr)//2:])))*np.real(np.exp(j*w*t))
+  Ex = np.concatenate((Ex1, Ex2), axis = 0)
+  Exc = np.reshape(Ex, (len(x), int(len(x[0]))), order='F')
+
+  return Exc
+
+def maxwellexH(n1, n2, t, x, w):
+  #No esta completo
+  xr = np.reshape(x, len(x)*len(x[0]), order='F')
+  A = np.zeros(2)
+  B = np.zeros(2)
+  j = np.complex(0,1)
+  A[0] = (n2*np.cos(n2*w))/(n1*np.cos(n1*w))
+  A[1] = np.real(np.exp(j*w*(n1+n2)))
+  B[0] = np.real(np.exp(-2*j*n1*w))*A[0] 
+  B[1] = -np.real(np.exp(2*j*n2*w))*A[1]
+  Hx1 = np.zeros((len(x)*len(x[0])))
+  Hx2 = np.zeros((len(x)*len(x[0])))
+
+  Hx1 = (A[0]*np.real(np.exp(w*j*n1*xr[:len(xr)//2]))+B[0]*np.real(np.exp(-w*j*n1*xr[:len(xr)//2])))*np.real(np.exp(j*w*t))
+  Hx2 = (A[1]*np.real(np.exp(w*j*n2*xr[len(xr)//2:]))+B[1]*np.real(np.exp(-w*j*n2*xr[len(xr)//2:])))*np.real(np.exp(j*w*t))
+  Hx = np.concatenate((Hx1, Hx2), axis = 0)
+  Hxc = np.reshape(Hx, (len(x), int(len(x[0]))), order='F')
+
+  return Hxc
+
+def HeatCRHS1D(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale):
+    K=10
+    n_faces = 1
+    map_O = K*n_faces
+    vmap_i = 1
+    map_i = 1
+    n_fp = 2
+    alpha = 1
+    du = np.zeros(n_faces*n_fp*k_elem)
+    #du reshape
+    nxr = np.reshape(nx, len(nx)*len(nx[0]), order='F')
+    #nx reshape
+    ur = np.reshape(u, len(u)*len(u[0]), order='F')
+    du = (ur[vmap_m-1]-ur[vmap_p-1])*(a*nxr)/2
+
+    uin = -np.sin(a*timelocal)
+    du[map_i-1] = (ur[vmap_i-1] - uin)*(a*nxr[map_i-1])/2
+    du[map_O-1] = 0
+    arx = -a*rx
+    Dru = np.matmul(Dr,u)
+    si = LIFT
+    dur = np.reshape(du, (2, int(len(du)/2)), order = 'F')
+    Fdu = Fscale*dur
+    rhsu = arx*Dru + np.matmul(si,Fdu)
+    return rhsu
