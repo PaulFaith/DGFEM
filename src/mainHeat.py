@@ -9,8 +9,8 @@ Kg = np.array([])
 errorEK = np.array([])
 fig = plt.figure()
 
-for N in range(2, 4):
-  for k_element in range(20, 21, 2):
+for N in range(1, 8):
+  for k_element in range(10, 31, 2):
     #GENERATE SIMPE MESH.
     print(k_element)
     Kg = np.append(Kg, k_element)
@@ -30,7 +30,7 @@ for N in range(2, 4):
     
     #SOLVE PROBLEM.
     #Heat section section.
-    finaltime = 1.8
+    finaltime = 2
     t = 0
     #Runge-Kutta residual storage.
     resu = np.zeros((N+1, K))
@@ -40,19 +40,20 @@ for N in range(2, 4):
     dt = CFL*xmin*xmin
     Nsteps = np.ceil(finaltime/dt)
     dt = finaltime/Nsteps
-    nplots = int(Nsteps/5)
+    #nplots = int(Nsteps/5)
     errorE = np.array([])
-    fig, axs = plt.subplots(6)
+    #fig, axs = plt.subplots(6)
     for tstep in range(int(Nsteps)):
-      if (tstep % nplots == 0):
-        ux = np.exp(-t)*np.sin(x)
-        axs[int(tstep/nplots)].set_ylim(-1,1)
-        axs[int(tstep/nplots)].plot(x, u, '.r:', ms = 6, color = 'red')
-        axs[int(tstep/nplots)].plot(x, ux, '.b:', ms = 6, color = 'blue')  
+      #if (tstep % nplots == 0):
+        #ux = np.exp(-t)*np.sin(x)
+        #axs[int(tstep/nplots)].set_ylim(-1,1)
+        #axs[int(tstep/nplots)].plot(x, u, '.r:', ms = 6, color = 'red')
+        #axs[int(tstep/nplots)].plot(x, ux, '.b:', ms = 6, color = 'blue')  
       for intrk in range(5):
         timelocal = t + rk4("c", intrk)*dt
-        [rhsu]  = HeatCRHS1D(intrk, tstep, E, H, epsilon, mu, K, Dr, LIFT, rx, nx, vmapP, vmapM, mapB, vmapB, Fscale) 
-        resu = rk4("a", intrk)*resu + dt#*rhsu
+        rhsu  = HeatCRHS1D(u, timelocal, k_element, N, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) 
+        resu = rk4("a", intrk)*resu + dt*rhsu
+        u = u + rk4("b", intrk)*resu
 
       #Calculo del error y la eficiencia del metodo para distintos K y N.
       ux = np.exp(-t)*np.sin(x)
@@ -63,11 +64,11 @@ for N in range(2, 4):
       
 
       t = t + dt 
-    for ax in axs.flat:
-        ax.set(xlabel=f'x, N = {N}, K = {k_element}', ylabel='u(x,t)')
+    #for ax in axs.flat:
+        #ax.set(xlabel=f'x, N = {N}, K = {k_element}', ylabel='u(x,t)')
 
-    for ax in axs.flat:
-        ax.label_outer()
+    #for ax in axs.flat:
+        #ax.label_outer()
 
 
     #PLOT SOLUTION.
@@ -76,10 +77,10 @@ for N in range(2, 4):
     #else : 
     errorEK = np.append(errorEK, np.sum(errorE)/len(errorE))
     errorE = np.delete
-    print(errorEK)
+    #print(errorEK)
     print(Kg)
-  #plt.plot(Kg , errorEK, label = f'N = {N}')
-  #plt.annotate(f'N = {N}', (Kg[int(len(Kg)//2)],errorEK[int(len(errorEK)//2)]), textcoords="offset points", xytext=(-10,10), ha='center')    
+  plt.plot(Kg , errorEK, label = f'N = {N}')
+  plt.annotate(f'N = {N}', (Kg[int(len(Kg)//2)],errorEK[int(len(errorEK)//2)]), textcoords="offset points", xytext=(-10,10), ha='center')    
   errorEK = np.array([])
   Kg = np.array([])
 plt.show()

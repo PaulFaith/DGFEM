@@ -1,6 +1,46 @@
 import numpy as np
 import scipy.special
 import math
+
+n_faces = 1
+    map_O = k_elem*n_faces
+    vmap_O = k_elem*(N+1)
+    vmap_i = 1
+    map_i = 1
+    n_fp = 2
+    alpha = 1
+    du = np.zeros(n_faces*n_fp*k_elem)
+    dq = np.zeros(n_faces*n_fp*k_elem)
+    #du reshape
+    nxr = np.reshape(nx, len(nx)*len(nx[0]), order='F')
+    #nx reshape
+    ur = np.reshape(u, len(u)*len(u[0]), order='F')
+    du = (ur[vmap_m-1]-ur[vmap_p-1])/2
+
+    uin = -ur[vmap_i-1]
+    uout = -ur[vmap_O-1]
+
+    du[map_i-1] = (ur[vmap_i-1] - uin)/2
+    du[map_O-1] = (ur[vmap_O-1] - uout)/2
+    dur = np.reshape(du, (2, int(len(du)/2)), order = 'F')
+    du1 =nx*dur
+    si = LIFT
+    Dru = np.matmul(Dr,u)
+    Fdu = Fscale*du1
+
+    q = rx*Dru - np.matmul(si,Fdu)
+    qr = np.reshape(q, len(q)*len(q[0]), order='F')
+    dq = (qr[vmap_m-1]-qr[vmap_p-1])/2
+    qin = qr[vmap_i-1]
+    qout = qr[vmap_O-1]
+    dq[map_i-1] = (qr[vmap_i-1] - qin)/2
+    dq[map_O-1] = (qr[vmap_O-1] - qout)/2
+    dqr = np.reshape(dq, (2, int(len(dq)/2)), order = 'F')
+    dq1 = nx*dqr
+    Drq = np.matmul(Dr,q)
+    Fdq = Fscale*dq1
+
+    
 def set_nodes(n_order, vertices):
     """ 
     Sets n_order+1 nodes in equispaced positions using the vertices indicated

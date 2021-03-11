@@ -15,6 +15,7 @@ LIFT = surface_integral_dg(N, V)
 x = nodes_coordinates(N, EToV, VX)
 [rx, J] = geometric_factors(x, Dr)
 nx = normals(K)
+print (rx)
 [EToE, EToF] = connect(EToV)
 [vmapM, vmapP, vmapB, mapB,fmask] = build_maps(N, x, EToE, EToF)
 Fscale = 1/J[fmask,:]
