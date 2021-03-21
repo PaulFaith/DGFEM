@@ -656,3 +656,54 @@ def HeatCRHS1D(u, timelocal, k_elem, N, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     rhsu = rx*Drq - np.matmul(si,Fdq)
     #input("Press Enter to continue...")
     return rhsu
+    
+def SchrodingerCRHS1D(u, timelocal, k_elem, N, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale):
+    n_faces = 2
+    map_O = k_elem*n_faces
+    vmap_O = k_elem*(N+1)
+    vmap_i = 1
+    map_i = 1
+    n_fp = 2
+    alpha = 1
+    du = np.zeros(n_faces*n_fp*k_elem, dtype = "complex_")
+    dq = np.zeros(n_faces*n_fp*k_elem, dtype = "complex_")
+    #du reshape
+    nx = nx.astype(complex)
+    nxr = np.reshape(nx, len(nx)*len(nx[0]), order='F')
+    #nx reshape
+    u = u.astype(complex)
+    ur = np.reshape(u, len(u)*len(u[0]), order='F')
+    du = (ur[vmap_m-1]-ur[vmap_p-1])/2
+    #print(du, '\n')
+    uin = -ur[vmap_i-1]
+    uout = -ur[vmap_O-1]
+    #print(map_O)
+    #print(vmap_O)
+    #print(uout, '\n\n', uin, '\n\n')
+    
+    du[map_i-1] = (ur[vmap_i-1] - uin)/2
+    du[map_O-1] = (ur[vmap_O-1] - uout)/2
+    dur = np.reshape(du, (2, int(len(du)/2)), order = 'F')
+    du1 =nx*dur
+    #print(du)
+    #print(du1)
+    si = LIFT.astype(complex)
+    Dr = Dr.astype(complex)
+    
+    Dru = np.matmul(Dr,u)
+    Fdu = Fscale*du1
+    Fdu = Fdu.astype(complex)
+    q = rx*Dru - np.matmul(si,Fdu)
+    qr = np.reshape(q, len(q)*len(q[0]), order='F')
+    dq = (qr[vmap_m-1]-qr[vmap_p-1])/2
+    qin = qr[vmap_i-1]
+    qout = qr[vmap_O-1]
+    dq[map_i-1] = (qr[vmap_i-1] - qin)/2
+    dq[map_O-1] = (qr[vmap_O-1] - qout)/2
+    dqr = np.reshape(dq, (2, int(len(dq)/2)), order = 'F')
+    dq1 = nx*dqr
+    Drq = np.matmul(Dr,q)
+    Fdq = Fscale*dq1
+    rhsu = rx*Drq - np.matmul(si,Fdq)
+    #input("Press Enter to continue...")
+    return rhsu

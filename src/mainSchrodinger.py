@@ -6,15 +6,15 @@ import numpy as np
 import math
 
 Kg = np.array([])
-errorEK = np.array([])
-fig = plt.figure()
+#errorEK = np.array([])
+#fig = plt.figure()
 
-for N in range(6, 7):
-  for k_element in range(20, 21, 2):
+for N in range(4, 5):
+  for k_element in range(10, 11, 2):
     #GENERATE SIMPE MESH.
     print(k_element)
     Kg = np.append(Kg, k_element)
-    [Nv, VX, K, EToV] = mesh_generator(0.0, 2.0*math.pi, k_element)
+    [Nv, VX, K, EToV] = mesh_generator(-2.0, 2.0, k_element)
     #INITIALIZE SOLVER AND CONSTRUCT GRID AND METRIC.
     r = jacobi_gauss_lobatto(0, 0, N)
     V = vandermonde(N, r)
@@ -26,44 +26,55 @@ for N in range(6, 7):
     [EToE, EToF] = connect(EToV)
     [vmapM, vmapP, vmapB, mapB,fmask] = build_maps(N, x, EToE, EToF)
     Fscale = 1/J[fmask,:]
-    u = 5*np.sin(x)
+    u = np.sqrt(np.sqrt(2/math.pi))*np.exp(-x*x)
     
     #SOLVE PROBLEM.
     #Heat section section.
-    finaltime = .8
+    finaltime = .5
     t = 0
     #Runge-Kutta residual storage.
     resu = np.zeros((N+1, K))
     #Compute time steps.
     xmin = np.amin(np.abs(x[0, :] - x[1, :]))
-    CFL = .25
+    CFL = .05
     dt = CFL*xmin*xmin
     Nsteps = np.ceil(finaltime/dt)
     dt = finaltime/Nsteps
-    #nplots = int(Nsteps/5)
+    nplots = int(Nsteps/20)
     errorE = np.array([])
-    #fig, axs = plt.subplots(6)
+    fig, ax = plt.subplots(2)
+    #line, = ax.plot(x, np.real(u))
+
+    def animate(u):
+      line.set_ydata(u)  # update the data.
+      return line,
+
     for tstep in range(int(Nsteps)):
-      #if (tstep % nplots == 0):
+      if (tstep % nplots == 0):
         #ux = np.exp(-t)*np.sin(x)
-        #axs[int(tstep/nplots)].set_ylim(-1,1)
-        #axs[int(tstep/nplots)].plot(x, u, '.r:', ms = 6, color = 'red')
+        #axs[int(tstep/nplots)].set_xlim(-1,1)
+        #ax[0].set_ylim(0,1)
+        ax[0].plot(x, np.abs(u)*np.abs(u), '.r:', ms = 6, color = 'red')
+        #ax[0].plot(x, np.sqrt(2/math.pi)*(1/np.sqrt(1+4*t*t))*np.exp(-2*x*x/(1+4*t*t)), '.r:', ms = 6, color = 'blue')
         #axs[int(tstep/nplots)].plot(x, ux, '.b:', ms = 6, color = 'blue')  
       for intrk in range(5):
         timelocal = t + rk4("c", intrk)*dt
-        rhsu  = HeatCRHS1D(u, timelocal, k_element, N, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) 
+        rhsu  = SchrodingerCRHS1D(u, timelocal, k_element, N, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) 
         resu = rk4("a", intrk)*resu + dt*rhsu
         u = u + rk4("b", intrk)*resu
-
+        u = 1.2j*u
+        #u[0:,0] = 0.0
+        #u[0:,k_element-1] = 0.0
       #Calculo del error y la eficiencia del metodo para distintos K y N.
-      ux = 5*np.exp(-t)*np.sin(x)
-      if errorE.size == 0 :
-        errorE = np.sqrt((np.sum((ux-u)*(ux-u)))/len(u)*len(u[0]))
-      else :
-        errorE = np.append(errorE, np.sqrt((np.sum((ux-u)*(ux-u)))/len(u)*len(u[0])))
+      #ux = np.exp(-t)*np.sin(x)
+      #if errorE.size == 0 :
+        #errorE = np.sqrt((np.sum((ux-u)*(ux-u)))/len(u)*len(u[0]))
+      #else :
+        #errorE = np.append(errorE, np.sqrt((np.sum((ux-u)*(ux-u)))/len(u)*len(u[0])))
       
 
-      t = t + dt 
+      t = t + dt
+      #ani = animation.FuncAnimation(fig, animate, interval=20, blit=True, save_count=50) 
     #for ax in axs.flat:
         #ax.set(xlabel=f'x, N = {N}, K = {k_element}', ylabel='u(x,t)')
 
@@ -75,13 +86,13 @@ for N in range(6, 7):
     #if errorEK.size == 0 :
       #errorEK = np.sum(errorE)/len(errorE)
     #else : 
-    errorEK = np.append(errorEK, np.sum(errorE)/len(errorE))
-    errorE = np.delete
+    #errorEK = np.append(errorEK, np.sum(errorE)/len(errorE))
+    #errorE = np.delete
     #print(errorEK)
-    print(Kg)
-  plt.plot(Kg , errorEK, label = f'N = {N}')
-  plt.annotate(f'N = {N}', (Kg[int(len(Kg)//2)],errorEK[int(len(errorEK)//2)]), textcoords="offset points", xytext=(-10,10), ha='center')    
-  errorEK = np.array([])
-  Kg = np.array([])
+    #print(Kg)
+  #plt.plot(Kg , errorEK, label = f'N = {N}')
+  #plt.annotate(f'N = {N}', (Kg[int(len(Kg)//2)],errorEK[int(len(errorEK)//2)]), textcoords="offset points", xytext=(-10,10), ha='center')    
+  #errorEK = np.array([])
+  #Kg = np.array([])
 plt.show()
-print(u)
+#print(u)
