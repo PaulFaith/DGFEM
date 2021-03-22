@@ -9,8 +9,8 @@ Kg = np.array([])
 errorEK = np.array([])
 fig = plt.figure()
 
-for N in range(6, 7):
-  for k_element in range(20, 21, 2):
+for N in range(2, 3):
+  for k_element in range(10, 11, 2):
     #GENERATE SIMPE MESH.
     print(k_element)
     Kg = np.append(Kg, k_element)
@@ -30,7 +30,7 @@ for N in range(6, 7):
     
     #SOLVE PROBLEM.
     #Heat section section.
-    finaltime = .8
+    finaltime = .5
     t = 0
     #Runge-Kutta residual storage.
     resu = np.zeros((N+1, K))
@@ -40,11 +40,11 @@ for N in range(6, 7):
     dt = CFL*xmin*xmin
     Nsteps = np.ceil(finaltime/dt)
     dt = finaltime/Nsteps
-    #nplots = int(Nsteps/5)
+    #nplots = int(Nsteps/1)
     errorE = np.array([])
-    #fig, axs = plt.subplots(6)
+    #fig, axs = plt.subplots(2)
     for tstep in range(int(Nsteps)):
-      #if (tstep % nplots == 0):
+      if (tstep % nplots == 0):
         #ux = np.exp(-t)*np.sin(x)
         #axs[int(tstep/nplots)].set_ylim(-1,1)
         #axs[int(tstep/nplots)].plot(x, u, '.r:', ms = 6, color = 'red')

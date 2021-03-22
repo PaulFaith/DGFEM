@@ -501,28 +501,15 @@ def rk4(l, intrk):
   return c[intrk]
 
 class Galerkin:
-    meshi = 0.0
-    meshf = 1.0
-    def __init__(self, K, N):
+    def __init__(self, K, N, mi, mf):
         self.K = K
         self.N = N
-        self.tf = tf
-        [self.Nv, self.VX, self.EToV] = mesh_generator(meshi, meshf*math.pi, self.K)
-        self.r = jacobi_gauss_lobatto(0, 0, self.N)
-        self.V = vandermonde(self.N, self.r)
-        self.Dr = differentiation_matrix(self.N, self.r, self.V)
-        self.LIFT = surface_integral_dg(self.N, self.V)
-        self.x = nodes_coordinates(self.N, self.EToV, self.VX)
-        [self.rx, self.J] = geometric_factors(self.x, self.Dr)
-        self.nx = normals(self.K)
-        [self.EToE, self.EToF] = connect(self.EToV)
-        [self.vmapM, self.vmapP, self.vmapB, self.mapB, self.fmask] = build_maps(self.N, self.x, self.EToE, self.EToF)
-        self.Fscale = 1/J[self.fmask,:]
-        self.t = 0
+        self.mi = mi
+        self.mf = mf
     def __string__(self):
         return f"Discrete Galerkin FEM initialized with N = {self.N} and K = {self.K}, lets go mr. Intel."
 
-    def calculate(self, case, u, tf):
+    def calculate(self, case, tf):
         if case == "A":
             pass
         elif case == "Msin":
@@ -531,80 +518,77 @@ class Galerkin:
             pass
         elif case == "Mgglass":
             pass
-        elif cases == "H":
-            pass
+        elif case == "H":
+            [self.Nv, self.VX, self.K, self.EToV] = mesh_generator(self.mi, self.mf, self.K)
+            self.r = jacobi_gauss_lobatto(0, 0, self.N)
+            self.V = vandermonde(self.N, self.r)
+            self.Dr = differentiation_matrix(self.N, self.r, self.V)
+            self.LIFT = surface_integral_dg(self.N, self.V)
+            self.x = nodes_coordinates(self.N, self.EToV, self.VX)
+            [self.rx, self.J] = geometric_factors(self.x, self.Dr)
+            self.nx = normals(self.K)
+            [self.EToE, self.EToF] = connect(self.EToV)
+            [self.vmapM, self.vmapP, self.vmapB, self.mapB, self.fmask] = build_maps(self.N, self.x, self.EToE, self.EToF)
+            self.Fscale = 1/self.J[self.fmask,:]
+            self.t = 0
+            
+            self.u = 5*np.sin(self.x)
+            self.resu = np.zeros((self.N+1, self.K))
+            self.xmin = np.amin(np.abs(self.x[0, :] - self.x[1, :]))
+            CFL = .25
+            self.dt = CFL*self.xmin*self.xmin
+            self.Nsteps = np.ceil(tf/self.dt)
+            self.dt = tf/self.Nsteps
+            
+            self.n_faces = 2
+            self.map_O = self.K*self.n_faces
+            self.vmap_O = self.K*(self.N+1)
+            self.vmap_i = 1
+            self.map_i = 1
+            self.n_fp = 2
+            self.du = np.zeros(self.n_faces*self.n_fp*self.K)
+            self.dq = np.zeros(self.n_faces*self.n_fp*self.K)
+            self.nxr = np.reshape(self.nx, len(self.nx)*len(self.nx[0]), order='F')
+            
+                        
+            for tstep in range(int(self.Nsteps)):
+              for intrk in range(5):
+                self.ur = np.reshape(self.u, len(self.u)*len(self.u[0]), order='F')
+                self.du = (self.ur[self.vmapM-1]-self.ur[self.vmapP-1])/2
+                self.uin = -self.ur[self.vmap_i-1]
+                self.uout = -self.ur[self.vmap_O-1]
+                self.du[self.map_i-1] = (self.ur[self.vmap_i-1] - self.uin)/2
+                self.du[self.map_O-1] = (self.ur[self.vmap_O-1] - self.uout)/2
+                self.dur = np.reshape(self.du, (2, int(len(self.du)/2)), order = 'F')
+                self.du1 =self.nx*self.dur
+                self.Dru = np.matmul(self.Dr,self.u)
+                self.Fdu = self.Fscale*self.du1
+                self.q = self.rx*self.Dru - np.matmul(self.LIFT,self.Fdu)
+                self.qr = np.reshape(self.q, len(self.q)*len(self.q[0]), order='F')
+                self.dq = (self.qr[self.vmapM-1]-self.qr[self.vmapP-1])/2
+                self.qin = self.qr[self.vmap_i-1]
+                self.qout = self.qr[self.vmap_O-1]
+                self.dq[self.map_i-1] = (self.qr[self.vmap_i-1] - self.qin)/2
+                self.dq[self.map_O-1] = (self.qr[self.vmap_O-1] - self.qout)/2
+                self.dqr = np.reshape(self.dq, (2, int(len(self.dq)/2)), order = 'F')
+                self.dq1 = self.nx*self.dqr
+                self.Drq = np.matmul(self.Dr,self.q)
+                self.Fdq = self.Fscale*self.dq1
+                self.rhsu = self.rx*self.Drq - np.matmul(self.LIFT,self.Fdq)
+                self.du = self.du-self.du
+                self.dq = self.dq-self.dq
+                #print(self.du)
+                #print(self.dq)
+                self.resu = rk4("a", intrk)*self.resu + self.dt*self.rhsu
+                self.u = self.u + rk4("b", intrk)*self.resu
+              #self.t = self.t + self.dt
+            return [self.u, self.x]
         elif case == "Sch":
             pass
         elif case == "SchNL":
             pass
         else:
             pass
-
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#     u = np.sin(x)
-#     finaltime = .8
-#
-#     #Runge-Kutta residual storage.
-#     resu = np.zeros((N+1, K))
-#     #Compute time steps.
-#     xmin = np.amin(np.abs(x[0, :] - x[1, :]))
-#     CFL = .25
-#     dt = CFL*xmin*xmin
-#     Nsteps = np.ceil(finaltime/dt)
-#     dt = finaltime/Nsteps
-#     #nplots = int(Nsteps/5)
-#     errorE = np.array([])
-#     #fig, axs = plt.subplots(6)
-#     for tstep in range(int(Nsteps)):
-#       #if (tstep % nplots == 0):
-#         #ux = np.exp(-t)*np.sin(x)
-#         #axs[int(tstep/nplots)].set_ylim(-1,1)
-#         #axs[int(tstep/nplots)].plot(x, u, '.r:', ms = 6, color = 'red')
-#         #axs[int(tstep/nplots)].plot(x, ux, '.b:', ms = 6, color = 'blue')
-#       for intrk in range(5):
-#         timelocal = t + rk4("c", intrk)*dt
-#         rhsu  = HeatCRHS1D(u, timelocal, k_element, N, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale)
-#         resu = rk4("a", intrk)*resu + dt*rhsu
-#         u = u + rk4("b", intrk)*resu
-#
-#       #Calculo del error y la eficiencia del metodo para distintos K y N.
-#       ux = np.exp(-t)*np.sin(x)
-#       if errorE.size == 0 :
-#         errorE = np.sqrt((np.sum((ux-u)*(ux-u)))/len(u)*len(u[0]))
-#       else :
-#         errorE = np.append(errorE, np.sqrt((np.sum((ux-u)*(ux-u)))/len(u)*len(u[0])))
-#
-#
-#       t = t + dt
-#     #for ax in axs.flat:
-#         #ax.set(xlabel=f'x, N = {N}, K = {k_element}', ylabel='u(x,t)')
-#
-#     #for ax in axs.flat:
-#         #ax.label_outer()
-#
-#
-#     #PLOT SOLUTION.
-#     #if errorEK.size == 0 :
-#       #errorEK = np.sum(errorE)/len(errorE)
-#     #else :
-#     errorEK = np.append(errorEK, np.sum(errorE))#/len(errorE)
-#     errorE = np.delete
-#     #print(errorEK)
-#     #print(Kg)
-#   plt.plot(Kg , errorEK, label = f'N = {N}')
-#   plt.annotate(f'N = {N}', (Kg[int(len(Kg)//2)],errorEK[int(len(errorEK)//2)]), textcoords="offset points", xytext=(-10,10), ha='center')
-#   errorEK = np.array([])
-#   Kg = np.array([])
-# plt.show()
-
 
 def advecrhs1d(u, timelocal, a, k_elem, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale):
     K=10
@@ -727,24 +711,15 @@ def HeatCRHS1D(u, timelocal, k_elem, N, Dr, LIFT, rx, nx, vmap_p, vmap_m, Fscale
     alpha = 1
     du = np.zeros(n_faces*n_fp*k_elem)
     dq = np.zeros(n_faces*n_fp*k_elem)
-    #du reshape
     nxr = np.reshape(nx, len(nx)*len(nx[0]), order='F')
-    #nx reshape
     ur = np.reshape(u, len(u)*len(u[0]), order='F')
     du = (ur[vmap_m-1]-ur[vmap_p-1])/2
-    #print(du, '\n')
     uin = -ur[vmap_i-1]
     uout = -ur[vmap_O-1]
-    #print(map_O)
-    #print(vmap_O)
-    #print(uout, '\n\n', uin, '\n\n')
-
     du[map_i-1] = (ur[vmap_i-1] - uin)/2
     du[map_O-1] = (ur[vmap_O-1] - uout)/2
     dur = np.reshape(du, (2, int(len(du)/2)), order = 'F')
     du1 =nx*dur
-    #print(du)
-    #print(du1)
     si = LIFT
     Dru = np.matmul(Dr,u)
     Fdu = Fscale*du1

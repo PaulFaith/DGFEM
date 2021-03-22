@@ -1,2 +1,3 @@
 language = "bash"
-run = "python3 src/mainSchrodinger.py"
+#run = "python3 src/mainHeat.py"
+run = "python3 src/Vclass/main.py"
