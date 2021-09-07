@@ -10,11 +10,11 @@ Kg = np.array([])
 #fig = plt.figure()
 
 for N in range(4, 5):
-  for k_element in range(10, 11, 2):
+  for k_element in range(20, 21, 2):
     #GENERATE SIMPE MESH.
     print(k_element)
     Kg = np.append(Kg, k_element)
-    [Nv, VX, K, EToV] = mesh_generator(-2.0, 2.0, k_element)
+    [Nv, VX, K, EToV] = mesh_generator(-4.0, 4.0, k_element)
     #INITIALIZE SOLVER AND CONSTRUCT GRID AND METRIC.
     r = jacobi_gauss_lobatto(0, 0, N)
     V = vandermonde(N, r)
@@ -26,11 +26,11 @@ for N in range(4, 5):
     [EToE, EToF] = connect(EToV)
     [vmapM, vmapP, vmapB, mapB,fmask] = build_maps(N, x, EToE, EToF)
     Fscale = 1/J[fmask,:]
-    u = np.sqrt(np.sqrt(2/math.pi))*np.exp(-x*x)
+    u = np.sqrt(np.sqrt(2/math.pi))*np.exp(-x*x)+0j
     
     #SOLVE PROBLEM.
     #Heat section section.
-    finaltime = .5
+    finaltime = 1
     t = 0
     #Runge-Kutta residual storage.
     resu = np.zeros((N+1, K))
@@ -40,7 +40,7 @@ for N in range(4, 5):
     dt = CFL*xmin*xmin
     Nsteps = np.ceil(finaltime/dt)
     dt = finaltime/Nsteps
-    nplots = int(Nsteps/20)
+    nplots = int(Nsteps/10)
     errorE = np.array([])
     fig, ax = plt.subplots(2)
     #line, = ax.plot(x, np.real(u))
@@ -54,17 +54,24 @@ for N in range(4, 5):
         #ux = np.exp(-t)*np.sin(x)
         #axs[int(tstep/nplots)].set_xlim(-1,1)
         #ax[0].set_ylim(0,1)
-        ax[0].plot(x, np.abs(u)*np.abs(u), '.r:', ms = 6, color = 'red')
-        #ax[0].plot(x, np.sqrt(2/math.pi)*(1/np.sqrt(1+4*t*t))*np.exp(-2*x*x/(1+4*t*t)), '.r:', ms = 6, color = 'blue')
+        ax[0].plot(x, np.abs(u)*np.abs(u), '.r:', ms = 1)
+        ax[1].plot(x, np.sqrt(2/math.pi)*(1/np.sqrt(1+4*t*t))*np.exp(-2*x*x/(1+4*t*t)), '.b:', ms = 1)
         #axs[int(tstep/nplots)].plot(x, ux, '.b:', ms = 6, color = 'blue')  
       for intrk in range(5):
         timelocal = t + rk4("c", intrk)*dt
         rhsu  = SchrodingerCRHS1D(u, timelocal, k_element, N, Dr, LIFT, rx, nx, vmapP, vmapM, Fscale) 
-        resu = rk4("a", intrk)*resu + dt*rhsu
+        resu = rk4("a", intrk)*resu + dt*.5j*rhsu
         u = u + rk4("b", intrk)*resu
-        u = 1.2j*u
-        #u[0:,0] = 0.0
-        #u[0:,k_element-1] = 0.0
+      
+        #u = 1.j*u
+        #print (u, "/n")
+
+        #print (u)
+        #input()
+        u[0:,0] = 0.0
+      
+        u[0:,k_element-1] = 0.0
+      #u = 1.j*u
       #Calculo del error y la eficiencia del metodo para distintos K y N.
       #ux = np.exp(-t)*np.sin(x)
       #if errorE.size == 0 :
